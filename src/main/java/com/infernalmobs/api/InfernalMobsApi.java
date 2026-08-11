@@ -35,6 +35,23 @@ public interface InfernalMobsApi {
      */
     List<String> getAffixIds(LivingEntity entity);
 
+    /** 查询某个词条是否被禁用；实体未炒鸡化时返回 false。 */
+    default boolean isAffixSuppressed(LivingEntity entity, String skillId) {
+        if (entity == null || skillId == null) return false;
+        return getHandle(entity).map(handle -> handle.isAffixSuppressed(skillId)).orElse(false);
+    }
+
+    /** 设置某个词条禁用状态；实体未炒鸡化时无效。 */
+    default void setAffixSuppressed(LivingEntity entity, String skillId, boolean suppressed) {
+        if (entity == null || skillId == null) return;
+        getHandle(entity).ifPresent(handle -> handle.setAffixSuppressed(skillId, suppressed));
+    }
+
+    /** 便捷重载：直接禁用指定词条。 */
+    default void setAffixSuppressed(LivingEntity entity, String skillId) {
+        setAffixSuppressed(entity, skillId, true);
+    }
+
     /**
      * 获取词条的显示名（MiniMessage，可包含颜色）。
      * 解析顺序：skill_name.yml 配置 -> skills.<id>.display -> 英文 id。

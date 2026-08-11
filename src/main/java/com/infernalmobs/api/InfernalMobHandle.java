@@ -2,7 +2,9 @@ package com.infernalmobs.api;
 
 import org.bukkit.entity.LivingEntity;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 炒鸡怪 API 门面：对外提供稳定视图（等级 / 词条 / 显示名），
@@ -23,6 +25,8 @@ public final class InfernalMobHandle {
     private int level;
     /** 词条 skillId 列表（可编辑）。 */
     private List<String> affixSkillIds;
+    /** 被禁用的词条 skillId 集合（大小写不敏感）。 */
+    private final Set<String> suppressedAffixIds = new HashSet<>();
     /** 自定义显示名（MiniMessage），null = 用默认 [LvN] 前缀名。 */
     private String displayName;
 
@@ -32,9 +36,25 @@ public final class InfernalMobHandle {
      * @param affixSkillIds  初始词条 skillId 列表（可空）
      */
     public InfernalMobHandle(LivingEntity entity, int level, List<String> affixSkillIds) {
+        this(entity, level, affixSkillIds, Set.of());
+    }
+
+    /**
+     * @param entity               炒鸡怪实体
+     * @param level                初始等级（下限 1）
+     * @param affixSkillIds        初始词条 skillId 列表（可空）
+     * @param suppressedAffixIds   初始被禁用词条集（可空）
+     */
+    public InfernalMobHandle(LivingEntity entity, int level, List<String> affixSkillIds,
+                            Set<String> suppressedAffixIds) {
         this.entity = entity;
         this.level = Math.max(1, level);
         this.affixSkillIds = affixSkillIds == null ? List.of() : List.copyOf(affixSkillIds);
+        if (suppressedAffixIds != null) {
+            suppressedAffixIds.forEach(id -> {
+                if (id != null) this.suppressedAffixIds.add(id.toLowerCase());
+            });
+        }
     }
 
     /** 炒鸡怪实体。 */
@@ -66,6 +86,24 @@ public final class InfernalMobHandle {
     public boolean hasAffix(String skillId) {
         if (skillId == null) return false;
         return affixSkillIds.stream().anyMatch(id -> id.equalsIgnoreCase(skillId));
+    }
+
+    /** 指定词条是否被禁用（大小写不敏感）。 */
+    public boolean isAffixSuppressed(String skillId) {
+        return skillId != null && suppressedAffixIds.contains(skillId.toLowerCase());
+    }
+
+    /** 设置指定词条禁用状态（大小写不敏感）。 */
+    public void setAffixSuppressed(String skillId, boolean suppressed) {
+        if (skillId == null) return;
+        String key = skillId.toLowerCase();
+        if (suppressed) suppressedAffixIds.add(key);
+        else suppressedAffixIds.remove(key);
+    }
+
+    /** 便捷重载：直接禁用指定词条。 */
+    public void setAffixSuppressed(String skillId) {
+        setAffixSuppressed(skillId, true);
     }
 
     /** 自定义显示名（MiniMessage 格式），null 表示使用默认 [LvN] 前缀名。 */
