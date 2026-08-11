@@ -36,6 +36,22 @@ public interface InfernalMobsApi {
     List<String> getAffixIds(LivingEntity entity);
 
     /**
+     * 获取词条的显示名（MiniMessage，可包含颜色）。
+     * 解析顺序：skill_name.yml 配置 -> skills.<id>.display -> 英文 id。
+     * 例如："poisonous" -> "<dark_green>剧毒</dark_green>"。
+     */
+    default String getAffixDisplayName(String affixId) {
+        return null;
+    }
+
+    /**
+     * 兼容别名：获取词条/技能显示名。
+     */
+    default String getSkillDisplayName(String skillId) {
+        return getAffixDisplayName(skillId);
+    }
+
+    /**
      * 在指定位置生成一只指定类型 / 等级 / 词条的炒鸡怪（同样会触发 {@code InfernalMobSpawnEvent}）。
      *
      * @param type          实体类型
