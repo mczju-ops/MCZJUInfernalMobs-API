@@ -14,18 +14,21 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 词条触发事件：在某个词条技能即将真正生效前触发（chance / cooldown 判定通过之后）。
+ * 词条触发前事件（Pre-Roll）：在某个词条技能进入概率判定（chance roll）之前触发。
  *
  * <p>外部插件（如 MagicItems）通过监听本事件实现词条免疫 / 削弱 / 数值修改：
  * <ul>
- *   <li>{@link #setCancelled(boolean)} = 免疫：本次词条触发被整体跳过；</li>
+ *   <li>{@link #setCancelled(boolean)} = 免疫：本次词条触发被整体跳过（不 roll、不进冷却）；</li>
  *   <li>{@link #setParam(String, Object)} = 改数值：修改参数袋后，已接入覆盖读取的技能在应用效果时使用新值。</li>
  * </ul>
+ *
+ * <p>注意：本事件在 chance roll <b>之前</b>触发，roll 结果（是否真正触发）在事件之后才确定。
+ * 词条真正生效后如需修改掉落 / 冷却等，见各技能专属的 Post 事件（如 {@code InfernalMobThiefEvent}）。
  *
  * <p>参数袋初始值为该词条技能在 config.yml 中的配置（skills.&lt;id&gt; 下的键），
  * 监听器可先 {@link #getParam(String)} 读取当前值再修改。
  */
-public class InfernalAffixTriggerEvent extends Event implements Cancellable {
+public class InfernalAffixPreRollEvent extends Event implements Cancellable {
 
     // === 常用参数 key（与 config.yml 中 skills.<id> 的键名保持一致）===
     public static final String PARAM_DURATION_TICKS = "duration-ticks";
@@ -50,7 +53,7 @@ public class InfernalAffixTriggerEvent extends Event implements Cancellable {
     private final Map<String, Object> parameters = new LinkedHashMap<>();
     private boolean cancelled = false;
 
-    public InfernalAffixTriggerEvent(String affixId, SkillType skillType, LivingEntity mob,
+    public InfernalAffixPreRollEvent(String affixId, SkillType skillType, LivingEntity mob,
                                      LivingEntity target, InfernalMobHandle handle, int level) {
         this.affixId = affixId;
         this.skillType = skillType;

@@ -8,7 +8,7 @@
          坐标与 JitPack 发布一致：com.github.mczju-ops:MCZJUInfernalMobs-API -->
     <groupId>com.github.mczju-ops</groupId>
     <artifactId>MCZJUInfernalMobs-API</artifactId>
-    <version>1.1.0</version>
+    <version>1.3.0</version>
     <packaging>jar</packaging>
     <name>MCZJUInfernalMobs-API</name>
     <description>炒鸡怪对外 API：接口与事件（空接口 + 事件），供外部插件编译期依赖；运行时由 InfernalMobs 插件本体提供。</description>

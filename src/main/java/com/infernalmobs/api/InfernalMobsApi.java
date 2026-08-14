@@ -18,7 +18,7 @@ import java.util.Optional;
  * InfernalMobsApi api = rsp != null ? rsp.getProvider() : null;
  * }</pre>
  *
- * <p>事件（{@link com.infernalmobs.api.event.InfernalAffixTriggerEvent} 等）由本插件直接
+ * <p>事件（{@link com.infernalmobs.api.event.InfernalAffixPreRollEvent} 等）由本插件直接
  * 通过 {@link org.bukkit.plugin.PluginManager#callEvent} 广播，无需经此接口。
  */
 public interface InfernalMobsApi {

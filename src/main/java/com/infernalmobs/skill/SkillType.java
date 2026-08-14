@@ -1,7 +1,7 @@
 package com.infernalmobs.skill;
 
 /**
- * 技能类型枚举（对外契约：事件 {@code InfernalAffixTriggerEvent#getSkillType()} 的返回类型）。
+ * 技能类型枚举（对外契约：事件 {@code InfernalAffixPreRollEvent#getSkillType()} 的返回类型）。
  */
 public enum SkillType {
     /** 主动技能：怪物对玩家造成伤害时触发 */
