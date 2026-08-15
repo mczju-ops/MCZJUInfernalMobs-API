@@ -1,5 +1,6 @@
 package com.infernalmobs.api;
 
+import com.infernalmobs.api.event.affix.InfernalAffixAttemptEvent;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -18,7 +19,7 @@ import java.util.Optional;
  * InfernalMobsApi api = rsp != null ? rsp.getProvider() : null;
  * }</pre>
  *
- * <p>事件（{@link com.infernalmobs.api.event.InfernalAffixAttemptEvent} 等）由本插件直接
+ * <p>事件（{@link InfernalAffixAttemptEvent} 等）由本插件直接
  * 通过 {@link org.bukkit.plugin.PluginManager#callEvent} 广播，无需经此接口。
  */
 public interface InfernalMobsApi {

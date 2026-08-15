@@ -1,5 +1,6 @@
 package com.infernalmobs.api;
 
+import com.infernalmobs.api.event.mob.InfernalMobSpawnEvent;
 import org.bukkit.entity.LivingEntity;
 
 import java.util.HashSet;
@@ -10,7 +11,7 @@ import java.util.Set;
  * 炒鸡怪 API 门面：对外提供稳定视图（等级 / 词条 / 显示名），
  * 不暴露插件内部模型（本类不依赖任何 {@code com.infernalmobs.model} 内部类）。
  *
- * <p>生成事件（{@link com.infernalmobs.api.event.InfernalMobSpawnEvent}）中可编辑：
+ * <p>生成事件（{@link InfernalMobSpawnEvent}）中可编辑：
  * <ul>
  *   <li>{@link #setLevel(int)} — 修改等级（影响血量等数值与 [LvN] 前缀）</li>
  *   <li>{@link #setAffixes(List)} — 覆盖词条（影响技能装配与悬停工具提示）</li>
