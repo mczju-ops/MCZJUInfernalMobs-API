@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * 冰冻（refrigerate）词条真正触发事件。
- * 外部插件可修改本次要求目标至少达到的冻结计数器值。
+ * 外部插件可修改本次要求目标处于完全冻结状态的持续 tick 数。
  */
 public class InfernalMobRefrigerateEvent extends InfernalAffixTriggeredEvent {
 
@@ -23,12 +23,12 @@ public class InfernalMobRefrigerateEvent extends InfernalAffixTriggeredEvent {
         setFreezeTicks(freezeTicks);
     }
 
-    /** 本次要求目标至少达到的冻结计数器值；0 表示不改变当前冻结状态。 */
+    /** 本次要求目标处于完全冻结状态的持续 tick 数；0 表示不改变当前冻结状态。 */
     public int getFreezeTicks() {
         return freezeTicks;
     }
 
-    /** 修改冻结计数器下限（负数按 0 处理）。 */
+    /** 修改完全冻结状态的持续 tick 数（负数按 0 处理）。 */
     public void setFreezeTicks(int freezeTicks) {
         this.freezeTicks = Math.max(0, freezeTicks);
     }
