@@ -9,9 +9,9 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 长枪（spear）强化追逐阶段实际接触目标时的单次命中事件。
+ * 长枪（spear）冲锋阶段对锁定玩家造成真实近战攻击时的单次命中事件。
  *
- * <p>取消只会阻止本次额外伤害；该次接触仍会消耗本轮 Spear 唯一的命中机会，
+ * <p>取消会取消对应的原始近战伤害；该次攻击仍会消耗本轮 Spear 唯一的命中机会，
  * 不会回滚已经发生的 spear 触发或冷却。
  */
 public class InfernalMobSpearHitEvent extends Event implements Cancellable {
@@ -40,7 +40,7 @@ public class InfernalMobSpearHitEvent extends Event implements Cancellable {
         return mob;
     }
 
-    /** 本次即将受到额外伤害的玩家。 */
+    /** 本次受到真实近战攻击的玩家。 */
     @NotNull
     public Player getPlayer() {
         return player;
@@ -57,12 +57,12 @@ public class InfernalMobSpearHitEvent extends Event implements Cancellable {
         return level;
     }
 
-    /** 即将交给 Bukkit/Paper 继续结算的基础伤害。 */
+    /** 即将交给 Bukkit/Paper 继续结算的原始近战伤害。 */
     public double getDamage() {
         return damage;
     }
 
-    /** 修改本次基础伤害（负数、NaN 和无穷值按 0 处理）。 */
+    /** 修改本次原始近战伤害（负数、NaN 和无穷值按 0 处理）。 */
     public void setDamage(double damage) {
         this.damage = Double.isFinite(damage) ? Math.max(0.0, damage) : 0.0;
     }
