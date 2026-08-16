@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
- * 炒鸡怪死亡掉落事件：在插件产出的所有掉落（等级池加权 / special / 保底 / dye 特殊掉落）聚合后、
+ * 炒鸡怪死亡掉落事件：在插件产出的所有掉落（等级池加权 / special / 保底）聚合后、
  * 落世界之前触发。原版掉落（event.getDrops()）不在此事件中。
  *
  * <p>外部插件可：

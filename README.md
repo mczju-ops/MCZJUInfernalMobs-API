@@ -11,7 +11,6 @@
 - `com.infernalmobs.api.InfernalMobHandle` —— 门面（等级 / 词条 / 显示名 / 禁用词条状态）
 - `com.infernalmobs.api.InfernalAffix` —— 词条枚举
 - `com.infernalmobs.api.event.*` —— 生成 / 触发 / 掉落 / 击杀事件
-- `com.infernalmobs.api.dye.*` —— Dye 对接 API
 - `com.infernalmobs.skill.SkillType` —— 技能类型枚举（事件契约）
 
 新增能力：
