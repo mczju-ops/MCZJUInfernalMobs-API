@@ -27,6 +27,7 @@
 - `InfernalMobFireworkDamageEvent`：firework 爆炸时针对每名受害者的伤害事件，可单独取消或修改基础伤害。
 - `InfernalMobGhastlyDamageEvent`：ghastly 火球直接命中或爆炸时的逐受害者伤害事件。
 - `InfernalMobNecromancerDamageEvent`：necromancer 凋灵之首直接命中或爆炸时的逐受害者伤害事件。
+- `InfernalMobStormDamageEvent`：storm 真实闪电命中时的逐受害者伤害事件。
 
 对接文档见主插件仓库 `docs/api.md`，并包含关于词条禁用状态的示例。
 
