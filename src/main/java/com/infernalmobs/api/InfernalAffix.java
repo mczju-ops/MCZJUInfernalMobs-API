@@ -14,6 +14,7 @@ import java.util.Optional;
 public enum InfernalAffix {
 
     ONE_UP("1up"),
+    POISONOUS("poisonous"),
     ARMOURED("armoured"),
     BLINDING("blinding"),
     WITHERING("withering"),
