@@ -32,7 +32,7 @@ public class InfernalMobSulfurLaunchEvent extends Event implements Cancellable {
         this.player = player;
         this.handle = handle;
         this.level = level;
-        this.upward = Math.max(0.0, upward);
+        setUpward(upward);
     }
 
     /** 产生本次硫泉的炒鸡怪实体。 */
@@ -63,9 +63,9 @@ public class InfernalMobSulfurLaunchEvent extends Event implements Cancellable {
         return upward;
     }
 
-    /** 修改本次准备施加的竖直速度（负数按 0 处理）。 */
+    /** 修改本次准备施加的竖直速度（负数、NaN 和无穷值按 0 处理）。 */
     public void setUpward(double upward) {
-        this.upward = Math.max(0.0, upward);
+        this.upward = Double.isFinite(upward) ? Math.max(0.0, upward) : 0.0;
     }
 
     @Override
