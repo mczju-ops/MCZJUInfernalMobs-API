@@ -10,7 +10,7 @@
 - `com.infernalmobs.api.InfernalMobsApi` —— 服务接口
 - `com.infernalmobs.api.InfernalMobHandle` —— 门面（等级 / 词条 / 显示名 / 禁用词条状态）
 - `com.infernalmobs.api.InfernalAffix` —— 词条枚举
-- `com.infernalmobs.api.event.*` —— 生成 / 触发 / 掉落 / 击杀事件
+- `com.infernalmobs.api.event.*` —— 生成 / 装配 / 触发 / 掉落 / 击杀事件
 - `com.infernalmobs.skill.SkillType` —— 技能类型枚举（事件契约）
 
 新增能力：
@@ -20,8 +20,9 @@
 
 词条事件契约：
 - `InfernalAffixAttemptEvent`：非 `STAT` 词条即将进行条件与概率判定；取消后不判定、不进入新冷却。
-- `InfernalAffixTriggeredEvent`：词条已通过判定且即将生效；取消效果仍视为成功触发，本体仍提交冷却。
-- 技能最终效果参数由专用 Triggered 事件以类型化字段暴露，不再通过通用字符串参数袋修改。
+- `InfernalAffixTriggeredEvent`：运行期词条已通过判定且即将生效；取消效果仍视为成功触发，本体仍保留冷却或一次性机会等成本。
+- `InfernalAffixEquippedEvent`：装配型词条的初始或常驻效果即将应用；取消只阻止本次装配效果，不删除词条。
+- 技能最终效果参数由专用 Triggered 或 Equipped 事件以类型化字段暴露，不再通过通用字符串参数袋修改。
 - `InfernalMobSulfurLaunchEvent`：sulfur 喷发时针对每名玩家的顶起事件，可单独取消或修改竖直速度。
 - `InfernalMobFireworkDamageEvent`：firework 爆炸时针对每名受害者的伤害事件，可单独取消或修改基础伤害。
 - `InfernalMobGhastlyDamageEvent`：ghastly 火球直接命中或爆炸时的逐受害者伤害事件。

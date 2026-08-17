@@ -1,7 +1,7 @@
-package com.infernalmobs.api.event.affix.triggered;
+package com.infernalmobs.api.event.affix.equipped;
 
 import com.infernalmobs.api.InfernalMobHandle;
-import com.infernalmobs.api.event.affix.InfernalAffixTriggeredEvent;
+import com.infernalmobs.api.event.affix.InfernalAffixEquippedEvent;
 import com.infernalmobs.skill.SkillType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.HandlerList;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>四个槽位字段只影响正常的装备分支；若本体因实体不属于 Mob 而进入抗性效果兜底分支，
  * 对这些字段的修改不会生效。实际装备的物品均沿用本词条的零掉落率规则。
  */
-public class InfernalMobArmouredEvent extends InfernalAffixTriggeredEvent {
+public class InfernalMobArmouredEvent extends InfernalAffixEquippedEvent {
 
     private static final HandlerList HANDLERS = new HandlerList();
 

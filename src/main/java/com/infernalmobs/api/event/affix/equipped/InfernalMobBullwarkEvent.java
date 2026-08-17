@@ -1,7 +1,7 @@
-package com.infernalmobs.api.event.affix.triggered;
+package com.infernalmobs.api.event.affix.equipped;
 
 import com.infernalmobs.api.InfernalMobHandle;
-import com.infernalmobs.api.event.affix.InfernalAffixTriggeredEvent;
+import com.infernalmobs.api.event.affix.InfernalAffixEquippedEvent;
 import com.infernalmobs.skill.SkillType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.HandlerList;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * 壁垒（bullwark）词条装配生效事件。
  * 外部插件可修改本次抗性效果的持续时间与效果等级。
  */
-public class InfernalMobBullwarkEvent extends InfernalAffixTriggeredEvent {
+public class InfernalMobBullwarkEvent extends InfernalAffixEquippedEvent {
 
     private static final HandlerList HANDLERS = new HandlerList();
 

@@ -1,7 +1,7 @@
-package com.infernalmobs.api.event.affix.triggered;
+package com.infernalmobs.api.event.affix.equipped;
 
 import com.infernalmobs.api.InfernalMobHandle;
-import com.infernalmobs.api.event.affix.InfernalAffixTriggeredEvent;
+import com.infernalmobs.api.event.affix.InfernalAffixEquippedEvent;
 import com.infernalmobs.skill.SkillType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.HandlerList;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
  * 外部插件可修改本次隐身的持续时间，以及用于遮蔽实体外观的头部槽位物品。
  * 非 Mob 实体仍会应用隐身，但不会使用头盔字段；实际装备的头盔沿用本词条的零掉落率规则。
  */
-public class InfernalMobCloakedEvent extends InfernalAffixTriggeredEvent {
+public class InfernalMobCloakedEvent extends InfernalAffixEquippedEvent {
 
     private static final HandlerList HANDLERS = new HandlerList();
 
