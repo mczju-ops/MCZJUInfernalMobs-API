@@ -104,14 +104,15 @@ public interface InfernalMobsApi {
     InfernalKillStats getKillStats(UUID playerId);
 
     /**
-     * 获取玩家已经记录的所有保底进度快照，按 {@code progressId} 排序。
+     * 获取玩家当前有效的所有保底规则状态，按规则 ID 排序。
      *
-     * <p>相同 {@code progressId} 的多条保底规则共享同一项。尚未产生记录的进度不会出现在列表中，
-     * 调用方可将缺失项视为进度 0；{@link InfernalGuaranteedLootProgress#completed()} 表示不重置型保底已经触发。
+     * <p>只返回全局已启用且当前轮换生效的规则；尚未开始累计的规则也会返回，进度为 0。
+     * 相同 {@code progressId} 的规则共享累计进度。进度单位为等级掉落池抽取次数，不一定等同于击杀数。
+     * 本方法只读取内存快照，不会创建物品或执行奖励。
      *
-     * @param playerId 玩家 UUID；为 null 或没有记录时返回空列表
+     * @param playerId 玩家 UUID；为 null、保底未启用或没有有效规则时返回空列表
      */
-    List<InfernalGuaranteedLootProgress> getGuaranteedLootProgress(UUID playerId);
+    List<InfernalGuaranteedLootStatus> getGuaranteedLootStatuses(UUID playerId);
 
     /**
      * 在指定位置生成一只指定类型 / 等级 / 词条的炒鸡怪（同样会触发 {@code InfernalMobSpawnEvent}）。

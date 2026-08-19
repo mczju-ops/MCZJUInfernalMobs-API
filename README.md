@@ -17,6 +17,9 @@
 - `isAffixSuppressed(LivingEntity entity, String skillId)`
 - `setAffixSuppressed(LivingEntity entity, String skillId, boolean suppressed)`
 - `InfernalMobHandle#isAffixSuppressed(String)` / `setAffixSuppressed(...)`
+- `rollLevelLootItems(int)` / `rollLevelLootRewards(int)`：按等级执行一次外部掉落抽取
+- `getKillStats(UUID)`：读取玩家击杀统计快照
+- `getGuaranteedLootStatuses(UUID)`：读取玩家当前有效的保底规则、进度与奖励信息
 
 词条事件契约：
 - `InfernalAffixAttemptEvent`：非 `STAT` 词条即将进行条件与概率判定；取消后不判定、不进入新冷却。
