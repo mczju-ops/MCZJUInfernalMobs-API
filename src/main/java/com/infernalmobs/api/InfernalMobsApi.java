@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * InfernalMobs 对外 API。由 InfernalMobsPlugin 通过 {@link org.bukkit.plugin.ServicesManager} 注册，
@@ -94,6 +95,23 @@ public interface InfernalMobsApi {
      * @return 本次抽取生成的全部完整奖励
      */
     List<InfernalLootReward> rollLevelLootRewards(int mobLevel);
+
+    /**
+     * 获取玩家当前的炒鸡怪击杀统计快照。
+     *
+     * @param playerId 玩家 UUID；为 null 或没有记录时返回空快照
+     */
+    InfernalKillStats getKillStats(UUID playerId);
+
+    /**
+     * 获取玩家已经记录的所有保底进度快照，按 {@code progressId} 排序。
+     *
+     * <p>相同 {@code progressId} 的多条保底规则共享同一项。尚未产生记录的进度不会出现在列表中，
+     * 调用方可将缺失项视为进度 0；{@link InfernalGuaranteedLootProgress#completed()} 表示不重置型保底已经触发。
+     *
+     * @param playerId 玩家 UUID；为 null 或没有记录时返回空列表
+     */
+    List<InfernalGuaranteedLootProgress> getGuaranteedLootProgress(UUID playerId);
 
     /**
      * 在指定位置生成一只指定类型 / 等级 / 词条的炒鸡怪（同样会触发 {@code InfernalMobSpawnEvent}）。
