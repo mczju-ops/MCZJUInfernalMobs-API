@@ -1,13 +1,16 @@
 package com.infernalmobs.api;
 
+import com.infernalmobs.api.event.affix.InfernalAffixAttemptEvent;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * InfernalMobs 对外 API。由 InfernalMobsPlugin 通过 {@link org.bukkit.plugin.ServicesManager} 注册，
@@ -18,7 +21,7 @@ import java.util.Optional;
  * InfernalMobsApi api = rsp != null ? rsp.getProvider() : null;
  * }</pre>
  *
- * <p>事件（{@link com.infernalmobs.api.event.InfernalAffixPreRollEvent} 等）由本插件直接
+ * <p>事件（{@link InfernalAffixAttemptEvent} 等）由本插件直接
  * 通过 {@link org.bukkit.plugin.PluginManager#callEvent} 广播，无需经此接口。
  */
 public interface InfernalMobsApi {
@@ -67,6 +70,60 @@ public interface InfernalMobsApi {
     default String getSkillDisplayName(String skillId) {
         return getAffixDisplayName(skillId);
     }
+
+    /**
+     * 按怪物等级执行一次完整的等级掉落池抽取，只返回生成成功的物品。
+     *
+     * <p>抽取会应用当前轮换套和 {@code drop-times}，可能返回多个或重复的物品。
+     * 不包含原版掉落、特殊实体掉落、保底掉落和词条产生的掉落，也不会执行命令、广播或掉落事件。
+     * 本方法可能调用外部物品插件，应在服务端主线程调用。
+     *
+     * @param mobLevel 怪物等级；小于 1 时返回空列表
+     * @return 本次抽取生成的全部物品；调用方拥有并可修改这些物品
+     */
+    List<ItemStack> rollLevelLootItems(int mobLevel);
+
+    /**
+     * 按怪物等级执行一次完整的等级掉落池抽取，返回物品及其命令、广播配置。
+     *
+     * <p>本方法只返回数据，不执行命令或发送广播。命令中的 {@code {player}} 以及广播模板中的
+     * {@code {player}/{item}/{amount}/{level}}（或同名 MiniMessage 标签）由调用方按自身上下文处理。
+     * 每次调用都会重新随机抽取，与 {@link #rollLevelLootItems(int)} 的结果不共享。
+     * 本方法可能调用外部物品插件，应在服务端主线程调用。
+     *
+     * @param mobLevel 怪物等级；小于 1 时返回空列表
+     * @return 本次抽取生成的全部完整奖励
+     */
+    List<InfernalLootReward> rollLevelLootRewards(int mobLevel);
+
+    /**
+     * 获取玩家当前的炒鸡怪击杀统计快照。
+     * 本方法只复制内存数据，可在异步线程调用。
+     *
+     * @param playerId 玩家 UUID；为 null 或没有记录时返回空快照
+     */
+    InfernalKillStats getKillStats(UUID playerId);
+
+    /**
+     * 获取所有已有记录玩家的炒鸡怪击杀统计快照，按玩家 UUID 排序。
+     *
+     * <p>玩家名为该玩家最近一次击杀时记录的名称，旧数据中没有名称时可能为 null。
+     * 本方法只复制内存数据，可在异步线程调用。
+     *
+     * @return 全部玩家统计的不可变快照；没有记录时返回空列表
+     */
+    List<InfernalPlayerKillStats> getAllPlayerKillStats();
+
+    /**
+     * 获取玩家当前有效的所有保底规则状态，按规则 ID 排序。
+     *
+     * <p>只返回全局已启用且当前轮换生效的规则；尚未开始累计的规则也会返回，进度为 0。
+     * 相同 {@code progressId} 的规则共享累计进度。进度单位为等级掉落池抽取次数，不一定等同于击杀数。
+     * 本方法只读取内存快照，不会创建物品或执行奖励。
+     *
+     * @param playerId 玩家 UUID；为 null、保底未启用或没有有效规则时返回空列表
+     */
+    List<InfernalGuaranteedLootStatus> getGuaranteedLootStatuses(UUID playerId);
 
     /**
      * 在指定位置生成一只指定类型 / 等级 / 词条的炒鸡怪（同样会触发 {@code InfernalMobSpawnEvent}）。

@@ -1,10 +1,12 @@
 package com.infernalmobs.api;
 
+import com.infernalmobs.api.event.affix.InfernalAffixAttemptEvent;
+
 import java.util.Optional;
 
 /**
  * 炒鸡怪词条（技能）枚举：对外暴露的全部可用词条 ID，与 config.yml 中 {@code skills.<id>} 及
- * {@link com.infernalmobs.api.event.InfernalAffixPreRollEvent#getAffixId()} 的值一一对应。
+ * {@link InfernalAffixAttemptEvent#getAffixId()} 的值一一对应。
  *
  * <p>外部插件可用 {@link #id()} 配合 {@link InfernalMobsApi#spawnInfernalMob} 指定词条，
  * 或在监听事件时与 {@code affixId} 比较（如 {@code event.getAffixId().equals(InfernalAffix.GRAVITY.id())}）。
@@ -12,6 +14,7 @@ import java.util.Optional;
 public enum InfernalAffix {
 
     ONE_UP("1up"),
+    POISONOUS("poisonous"),
     ARMOURED("armoured"),
     BLINDING("blinding"),
     WITHERING("withering"),
@@ -29,7 +32,6 @@ public enum InfernalAffix {
     NECROMANCER("necromancer"),
     FIREWORK("firework"),
     GHOST("ghost"),
-    DYE("dye"),
     CONFUSING("confusing"),
     THIEF("thief"),
     TOSSER("tosser"),
