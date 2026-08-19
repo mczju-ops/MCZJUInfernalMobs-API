@@ -98,10 +98,21 @@ public interface InfernalMobsApi {
 
     /**
      * 获取玩家当前的炒鸡怪击杀统计快照。
+     * 本方法只复制内存数据，可在异步线程调用。
      *
      * @param playerId 玩家 UUID；为 null 或没有记录时返回空快照
      */
     InfernalKillStats getKillStats(UUID playerId);
+
+    /**
+     * 获取所有已有记录玩家的炒鸡怪击杀统计快照，按玩家 UUID 排序。
+     *
+     * <p>玩家名为该玩家最近一次击杀时记录的名称，旧数据中没有名称时可能为 null。
+     * 本方法只复制内存数据，可在异步线程调用。
+     *
+     * @return 全部玩家统计的不可变快照；没有记录时返回空列表
+     */
+    List<InfernalPlayerKillStats> getAllPlayerKillStats();
 
     /**
      * 获取玩家当前有效的所有保底规则状态，按规则 ID 排序。
