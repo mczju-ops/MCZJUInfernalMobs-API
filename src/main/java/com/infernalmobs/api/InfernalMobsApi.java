@@ -4,6 +4,7 @@ import com.infernalmobs.api.event.affix.InfernalAffixAttemptEvent;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
 
@@ -68,6 +69,31 @@ public interface InfernalMobsApi {
     default String getSkillDisplayName(String skillId) {
         return getAffixDisplayName(skillId);
     }
+
+    /**
+     * 按怪物等级执行一次完整的等级掉落池抽取，只返回生成成功的物品。
+     *
+     * <p>抽取会应用当前轮换套和 {@code drop-times}，可能返回多个或重复的物品。
+     * 不包含原版掉落、特殊实体掉落、保底掉落和词条产生的掉落，也不会执行命令、广播或掉落事件。
+     * 本方法可能调用外部物品插件，应在服务端主线程调用。
+     *
+     * @param mobLevel 怪物等级；小于 1 时返回空列表
+     * @return 本次抽取生成的全部物品；调用方拥有并可修改这些物品
+     */
+    List<ItemStack> rollLevelLootItems(int mobLevel);
+
+    /**
+     * 按怪物等级执行一次完整的等级掉落池抽取，返回物品及其命令、广播配置。
+     *
+     * <p>本方法只返回数据，不执行命令或发送广播。命令中的 {@code {player}} 以及广播模板中的
+     * {@code {player}/{item}/{amount}/{level}}（或同名 MiniMessage 标签）由调用方按自身上下文处理。
+     * 每次调用都会重新随机抽取，与 {@link #rollLevelLootItems(int)} 的结果不共享。
+     * 本方法可能调用外部物品插件，应在服务端主线程调用。
+     *
+     * @param mobLevel 怪物等级；小于 1 时返回空列表
+     * @return 本次抽取生成的全部完整奖励
+     */
+    List<InfernalLootReward> rollLevelLootRewards(int mobLevel);
 
     /**
      * 在指定位置生成一只指定类型 / 等级 / 词条的炒鸡怪（同样会触发 {@code InfernalMobSpawnEvent}）。
