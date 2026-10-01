@@ -14,6 +14,9 @@ import org.jetbrains.annotations.NotNull;
  * <p>该事件在硫泉完成预警、准备为范围内某一名玩家施加竖直速度时触发，
  * 因而不属于“词条成功触发”事件。取消只会阻止该玩家在本次喷发中被顶起，
  * 不会取消已经发生的 sulfur 触发，也不会回滚其冷却。
+ *
+ * <p>sulfur 属于释放后脱手的技能：事件触发时原炒鸡怪可能已经死亡、变形或被移除。
+ * {@link #getMob()} 仍返回释放时的原实体对象，但调用方不应假定该实体当前有效。
  */
 public class InfernalMobSulfurLaunchEvent extends Event implements Cancellable {
 

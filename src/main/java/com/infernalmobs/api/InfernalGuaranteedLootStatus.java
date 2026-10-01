@@ -8,7 +8,8 @@ import java.util.Objects;
  * 玩家当前一条有效保底规则的只读状态。
  *
  * <p>{@code currentProgress} 与 {@code requiredProgress} 的单位均为等级掉落池抽取次数，
- * 不一定等同于炒鸡怪击杀数。共享同一 {@code progressId} 的轮换规则会读取同一份累计进度。
+ * 不一定等同于炒鸡怪击杀数。新版配置中 {@code progressId} 与 {@code ruleId} 相同，
+ * 奖励字段表示当前轮换套实际生效的奖励。
  */
 public record InfernalGuaranteedLootStatus(
         String ruleId,

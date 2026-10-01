@@ -4,7 +4,7 @@
 
 - 坐标（JitPack）：`com.github.mczju-ops:MCZJUInfernalMobs-API:1.4.0`
 - 依赖方式：`provided`（编译期引用，运行时由 InfernalMobs 插件本体通过 `ServicesManager` 提供实现）
-- 环境：Paper `api-version: '1.21.4'`、JDK 21+
+- 环境：Paper API `26.2.build` 或更高版本、JDK 25
 
 包含内容：
 - `com.infernalmobs.api.InfernalMobsApi` —— 服务接口

@@ -14,6 +14,7 @@ import java.util.Objects;
 /**
  * 硫磺（sulfur）词条真正触发事件。
  * 外部插件可修改本次硫泉的中心、预警时间、范围、基础顶起速度、粒子柱高度与音效。
+ * 事件通过后喷泉会脱离炒鸡怪生命周期继续执行；后续喷发事件中的原实体可能已经失效。
  */
 public class InfernalMobSulfurEvent extends InfernalAffixTriggeredEvent {
 
