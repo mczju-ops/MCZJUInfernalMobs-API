@@ -38,6 +38,14 @@ public interface InfernalMobsApi {
      */
     List<String> getAffixIds(LivingEntity entity);
 
+    /**
+     * 安全移除一个生物。若目标是炒鸡怪，会先卸载其词条、取消临时技能会话并注销运行时状态。
+     * 普通生物则直接移除。本方法不触发死亡、掉落、击杀统计或亡语流程，必须在服务端主线程调用。
+     *
+     * @param entity 要移除的生物；为 null 时忽略
+     */
+    void removeEntity(LivingEntity entity);
+
     /** 查询某个词条是否被禁用；实体未炒鸡化时返回 false。 */
     default boolean isAffixSuppressed(LivingEntity entity, String skillId) {
         if (entity == null || skillId == null) return false;
