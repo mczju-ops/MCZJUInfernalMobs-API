@@ -29,6 +29,14 @@ public interface InfernalMobsApi {
     /** 实体是否已被炒鸡化。 */
     boolean isInfernal(LivingEntity entity);
 
+    /**
+     * 实体是否为 thief 词条召唤的悦灵信使。
+     *
+     * <p>该判断基于实体身份标记，与悦灵当前是否仍在飞行任务中无关；实体死亡或被移除后，
+     * 对已经持有的实体对象仍可返回其原有身份。</p>
+     */
+    boolean isThiefCourier(LivingEntity entity);
+
     /** 获取炒鸡怪的门面句柄（实体未炒鸡化时为空）。 */
     Optional<InfernalMobHandle> getHandle(LivingEntity entity);
 
