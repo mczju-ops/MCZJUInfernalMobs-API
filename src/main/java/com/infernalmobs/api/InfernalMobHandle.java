@@ -94,6 +94,11 @@ public final class InfernalMobHandle {
         return skillId != null && suppressedAffixIds.contains(skillId.toLowerCase());
     }
 
+    /** 返回当前被禁用词条 ID 的只读快照，供临时实体 PDC 归因数据使用。 */
+    public Set<String> getSuppressedAffixIds() {
+        return Set.copyOf(suppressedAffixIds);
+    }
+
     /** 设置指定词条禁用状态（大小写不敏感）。 */
     public void setAffixSuppressed(String skillId, boolean suppressed) {
         if (skillId == null) return;

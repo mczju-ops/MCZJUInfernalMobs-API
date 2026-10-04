@@ -29,6 +29,14 @@ public interface InfernalMobsApi {
     /** 实体是否已被炒鸡化。 */
     boolean isInfernal(LivingEntity entity);
 
+    /**
+     * 实体是否为 thief 词条召唤的悦灵信使。
+     *
+     * <p>该判断基于实体身份标记，与悦灵当前是否仍在飞行任务中无关；实体死亡或被移除后，
+     * 对已经持有的实体对象仍可返回其原有身份。</p>
+     */
+    boolean isThiefCourier(LivingEntity entity);
+
     /** 获取炒鸡怪的门面句柄（实体未炒鸡化时为空）。 */
     Optional<InfernalMobHandle> getHandle(LivingEntity entity);
 
@@ -37,6 +45,14 @@ public interface InfernalMobsApi {
      * （等价于 {@code getHandle(entity).map(InfernalMobHandle::getAffixIds).orElse(List.of())}）。
      */
     List<String> getAffixIds(LivingEntity entity);
+
+    /**
+     * 安全移除一个生物。若目标是炒鸡怪，会先卸载其词条、取消临时技能会话并注销运行时状态。
+     * 普通生物则直接移除。本方法不触发死亡、掉落、击杀统计或亡语流程，必须在服务端主线程调用。
+     *
+     * @param entity 要移除的生物；为 null 时忽略
+     */
+    void removeEntity(LivingEntity entity);
 
     /** 查询某个词条是否被禁用；实体未炒鸡化时返回 false。 */
     default boolean isAffixSuppressed(LivingEntity entity, String skillId) {
@@ -118,7 +134,8 @@ public interface InfernalMobsApi {
      * 获取玩家当前有效的所有保底规则状态，按规则 ID 排序。
      *
      * <p>只返回全局已启用且当前轮换生效的规则；尚未开始累计的规则也会返回，进度为 0。
-     * 相同 {@code progressId} 的规则共享累计进度。进度单位为等级掉落池抽取次数，不一定等同于击杀数。
+     * 每条规则维护自己的累计进度，{@code progressId} 与规则 ID 相同。进度单位为等级掉落池抽取次数，
+     * 不一定等同于击杀数；奖励信息对应当前轮换套实际生效的奖励。
      * 本方法只读取内存快照，不会创建物品或执行奖励。
      *
      * @param playerId 玩家 UUID；为 null、保底未启用或没有有效规则时返回空列表
@@ -151,6 +168,6 @@ public interface InfernalMobsApi {
 
     /** API 版本，供依赖方做兼容判断。 */
     default int apiVersion() {
-        return 1;
+        return 2;
     }
 }
