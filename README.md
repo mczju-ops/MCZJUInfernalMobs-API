@@ -2,7 +2,7 @@
 
 炒鸡怪（InfernalMobs）**对外 API 独立项目**：只包含对外契约（接口 / 事件 / 枚举 / 门面），**不含插件本体实现**。
 
-- 坐标（JitPack）：`com.github.mczju-ops:MCZJUInfernalMobs-API:1.5.0`
+- 坐标（JitPack）：`com.github.mczju-ops:MCZJUInfernalMobs-API:1.5.3`
 - 依赖方式：`provided`（编译期引用，运行时由 InfernalMobs 插件本体通过 `ServicesManager` 提供实现）
 - 环境：Paper API `26.2.build` 或更高版本、JDK 25
 
@@ -14,6 +14,7 @@
 - `com.infernalmobs.skill.SkillType` —— 技能类型枚举（事件契约）
 
 新增能力：
+- `InfernalMobLootRollEvent`：死亡等级池抽取前修改次数（0～100），等级池和保底共用最终次数；不影响特殊、词条和原版奖励。新增事件不改变服务接口的 `apiVersion() = 2`，运行时需新版炒鸡插件。
 - `isAffixSuppressed(LivingEntity entity, String skillId)`
 - `setAffixSuppressed(LivingEntity entity, String skillId, boolean suppressed)`
 - `InfernalMobHandle#isAffixSuppressed(String)` / `setAffixSuppressed(...)`
