@@ -32,6 +32,7 @@ public enum InfernalAffix {
     NECROMANCER("necromancer"),
     FIREWORK("firework"),
     GHOST("ghost"),
+    REVENANT("revenant"),
     CONFUSING("confusing"),
     THIEF("thief"),
     TOSSER("tosser"),
