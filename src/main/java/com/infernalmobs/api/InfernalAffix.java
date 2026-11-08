@@ -12,7 +12,6 @@ import java.util.Optional;
  * 或在监听事件时与 {@code affixId} 比较（如 {@code event.getAffixId().equals(InfernalAffix.GRAVITY.id())}）。
  */
 public enum InfernalAffix {
-
     ONE_UP("1up"),
     POISONOUS("poisonous"),
     ARMOURED("armoured"),
@@ -50,7 +49,8 @@ public enum InfernalAffix {
     RUST("rust"),
     VEXSUMMONER("vexsummoner"),
     WARDENWRATH("wardenwrath"),
-    SWAP("swap");
+    SWAP("swap"),
+    HARDENED("hardened");
 
     private final String id;
 

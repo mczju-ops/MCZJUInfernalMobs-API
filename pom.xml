@@ -8,7 +8,7 @@
          坐标与 JitPack 发布一致：com.github.mczju-ops:MCZJUInfernalMobs-API -->
     <groupId>com.github.mczju-ops</groupId>
     <artifactId>MCZJUInfernalMobs-API</artifactId>
-    <version>1.5.3</version>
+    <version>1.5.4</version>
     <packaging>jar</packaging>
     <name>MCZJUInfernalMobs-API</name>
     <description>炒鸡怪对外 API：接口与事件（空接口 + 事件），供外部插件编译期依赖；运行时由 InfernalMobs 插件本体提供。</description>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>26.2.build.130-stable</version>
+            <version>26.2.build.135-stable</version>
             <scope>provided</scope>
         </dependency>
         <!-- @NotNull / @Nullable 注解 -->
