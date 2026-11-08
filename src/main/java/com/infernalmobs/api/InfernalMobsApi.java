@@ -9,6 +9,7 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -129,6 +130,24 @@ public interface InfernalMobsApi {
      * @return 全部玩家统计的不可变快照；没有记录时返回空列表
      */
     List<InfernalPlayerKillStats> getAllPlayerKillStats();
+
+    /**
+     * 获取全服所有等级合计的炒鸡怪实体类型击杀数，只统计 Bukkit 判定由玩家击杀的炒鸡怪，包含受保护小动物。
+     *
+     * <p>键为完整实体类型 ID（如 {@code minecraft:zombie}），值为累计击杀数。
+     * 返回不可变快照，不会随之后的击杀更新；没有记录时返回空 Map。
+     * 本方法只复制内存数据，可在异步线程调用。
+     */
+    Map<String, Long> getMobKillStats();
+
+    /**
+     * 获取全服指定等级的炒鸡怪实体类型击杀数，统计口径与 {@link #getMobKillStats()} 相同。
+     *
+     * <p>返回以完整实体类型 ID 为键的不可变快照，只复制内存数据，可在异步线程调用。
+     *
+     * @param mobLevel 怪物等级；小于 1 或没有记录时返回空 Map
+     */
+    Map<String, Long> getMobKillStats(int mobLevel);
 
     /**
      * 获取玩家当前有效的所有保底规则状态，按规则 ID 排序。

@@ -2,7 +2,7 @@
 
 炒鸡怪（InfernalMobs）**对外 API 独立项目**：只包含对外契约（接口 / 事件 / 枚举 / 门面），**不含插件本体实现**。
 
-- 坐标（JitPack）：`com.github.mczju-ops:MCZJUInfernalMobs-API:1.5.3`
+- 坐标（JitPack）：`com.github.mczju-ops:MCZJUInfernalMobs-API:1.5.5`
 - 依赖方式：`provided`（编译期引用，运行时由 InfernalMobs 插件本体通过 `ServicesManager` 提供实现）
 - 环境：Paper API `26.2.build` 或更高版本、JDK 25
 
@@ -20,6 +20,7 @@
 - `InfernalMobHandle#isAffixSuppressed(String)` / `setAffixSuppressed(...)`
 - `rollLevelLootItems(int)` / `rollLevelLootRewards(int)`：按等级执行一次外部掉落抽取
 - `getKillStats(UUID)` / `getAllPlayerKillStats()`：读取单个玩家或全部玩家的击杀统计快照
+- `getMobKillStats()` / `getMobKillStats(int)`（1.5.5 新增）：读取全服所有等级合计或指定等级的实体类型击杀数；返回不可变的 `Map<String, Long>` 快照，支持异步查询，包含受保护小动物。需要新版插件本体，`apiVersion()` 仍为 2。
 - `getGuaranteedLootStatuses(UUID)`：读取玩家当前有效的保底规则、进度与奖励信息
 
 词条事件契约：
