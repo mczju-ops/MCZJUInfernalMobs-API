@@ -150,16 +150,13 @@ public interface InfernalMobsApi {
     Map<String, Long> getMobKillStats(int mobLevel);
 
     /**
-     * 获取玩家当前有效的所有保底规则状态，按规则 ID 排序。
-     *
-     * <p>只返回全局已启用且当前轮换生效的规则；尚未开始累计的规则也会返回，进度为 0。
-     * 每条规则维护自己的累计进度，{@code progressId} 与规则 ID 相同。进度单位为等级掉落池抽取次数，
-     * 不一定等同于击杀数；奖励信息对应当前轮换套实际生效的奖励。
+     * 获取玩家当前有效的所有终极战利品规则状态，按战利品 ID 排序。
+     * 状态包含共享积分阈值、累计积分、理论保障数量、累计获得数量和待补发数量。
      * 本方法只读取内存快照，不会创建物品或执行奖励。
      *
      * @param playerId 玩家 UUID；为 null、保底未启用或没有有效规则时返回空列表
      */
-    List<InfernalGuaranteedLootStatus> getGuaranteedLootStatuses(UUID playerId);
+    List<InfernalUltimateLootStatus> getUltimateLootStatuses(UUID playerId);
 
     /**
      * 在指定位置生成一只指定类型 / 等级 / 词条的炒鸡怪（同样会触发 {@code InfernalMobSpawnEvent}）。
@@ -187,6 +184,6 @@ public interface InfernalMobsApi {
 
     /** API 版本，供依赖方做兼容判断。 */
     default int apiVersion() {
-        return 2;
+        return 3;
     }
 }

@@ -2,7 +2,7 @@
 
 炒鸡怪（InfernalMobs）**对外 API 独立项目**：只包含对外契约（接口 / 事件 / 枚举 / 门面），**不含插件本体实现**。
 
-- 坐标（JitPack）：`com.github.mczju-ops:MCZJUInfernalMobs-API:1.5.5`
+- 坐标（JitPack）：`com.github.mczju-ops:MCZJUInfernalMobs-API:1.5.6`
 - 依赖方式：`provided`（编译期引用，运行时由 InfernalMobs 插件本体通过 `ServicesManager` 提供实现）
 - 环境：Paper API `26.2.build` 或更高版本、JDK 25
 
@@ -14,14 +14,14 @@
 - `com.infernalmobs.skill.SkillType` —— 技能类型枚举（事件契约）
 
 新增能力：
-- `InfernalMobLootRollEvent`：死亡等级池抽取前修改次数（0～100），等级池和保底共用最终次数；不影响特殊、词条和原版奖励。新增事件不改变服务接口的 `apiVersion() = 2`，运行时需新版炒鸡插件。
+- `InfernalMobLootRollEvent`：死亡等级池抽取前修改次数（0～100），等级池和保底共用最终次数；不影响特殊、词条和原版奖励。新增事件不改变服务接口的 `apiVersion() = 3`，运行时需新版炒鸡插件。
 - `isAffixSuppressed(LivingEntity entity, String skillId)`
 - `setAffixSuppressed(LivingEntity entity, String skillId, boolean suppressed)`
 - `InfernalMobHandle#isAffixSuppressed(String)` / `setAffixSuppressed(...)`
 - `rollLevelLootItems(int)` / `rollLevelLootRewards(int)`：按等级执行一次外部掉落抽取
 - `getKillStats(UUID)` / `getAllPlayerKillStats()`：读取单个玩家或全部玩家的击杀统计快照
-- `getMobKillStats()` / `getMobKillStats(int)`（1.5.5 新增）：读取全服所有等级合计或指定等级的实体类型击杀数；返回不可变的 `Map<String, Long>` 快照，支持异步查询，包含受保护小动物。需要新版插件本体，`apiVersion()` 仍为 2。
-- `getGuaranteedLootStatuses(UUID)`：读取玩家当前有效的保底规则、进度与奖励信息
+- `getMobKillStats()` / `getMobKillStats(int)`（1.5.6 新增）：读取全服所有等级合计或指定等级的实体类型击杀数；返回不可变的 `Map<String, Long>` 快照，支持异步查询，包含受保护小动物。需要新版插件本体，`apiVersion()` 为 3。
+- `getUltimateLootStatuses(UUID)`：读取玩家当前有效的终极战利品规则、保底阈值、累计积分、理论保障数量、累计获得数量和待补发数量
 
 词条事件契约：
 - `InfernalAffixAttemptEvent`：非 `STAT` 词条即将进行条件与概率判定；取消后不判定、不进入新冷却。
