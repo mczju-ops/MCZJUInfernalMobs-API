@@ -22,6 +22,7 @@
 - `getKillStats(UUID)` / `getAllPlayerKillStats()`：读取单个玩家或全部玩家的击杀统计快照
 - `getMobKillStats()` / `getMobKillStats(int)`（1.5.6 新增）：读取全服所有等级合计或指定等级的实体类型击杀数；返回不可变的 `Map<String, Long>` 快照，支持异步查询，包含受保护小动物。需要新版插件本体，`apiVersion()` 为 3。
 - `getUltimateLootStatuses(UUID)`：读取玩家当前有效的终极战利品规则、保底阈值、累计积分、理论保障数量、累计获得数量和待补发数量
+- `getAllPlayerUltimateLootStats()`：批量读取全部玩家的终极战利品累计获得数，返回玩家 UUID、最近名称与按规则 ID 保存的件数。包含自然掉落、保底补发和已停用规则的历史记录；返回不可变内存快照，支持异步读取，供收集排行榜汇总。
 
 词条事件契约：
 - `InfernalAffixAttemptEvent`：非 `STAT` 词条即将进行条件与概率判定；取消后不判定、不进入新冷却。

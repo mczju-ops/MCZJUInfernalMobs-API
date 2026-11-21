@@ -159,6 +159,13 @@ public interface InfernalMobsApi {
     List<InfernalUltimateLootStatus> getUltimateLootStatuses(UUID playerId);
 
     /**
+     * 获取所有玩家实际累计获得的终极战利品数量，包含自然掉落和保底补发。
+     * 键为终极战利品规则 ID；包含当前已关闭或移除规则的历史记录。
+     * 仅复制内存数据，返回不可变快照，支持异步查询，不创建物品。
+     */
+    List<InfernalPlayerUltimateLootStats> getAllPlayerUltimateLootStats();
+
+    /**
      * 在指定位置生成一只指定类型 / 等级 / 词条的炒鸡怪（同样会触发 {@code InfernalMobSpawnEvent}）。
      *
      * @param type          实体类型
