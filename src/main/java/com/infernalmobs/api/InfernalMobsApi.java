@@ -191,6 +191,6 @@ public interface InfernalMobsApi {
 
     /** API 版本，供依赖方做兼容判断。 */
     default int apiVersion() {
-        return 3;
+        return 4;
     }
 }
